@@ -9,31 +9,19 @@ class AuthService {
     await _auth.signOut();
   }
 
-  signInStatus() async {
-    _auth.userChanges().listen((User user) {
-      if (user == null) {
-        print('User is currently signed out!');
-        return false;
-      } else {
-        print('User is signed in!');
-        return true;
-      }
-    });
-  }
-
-  UserModel _userFromfirebaseuser(User user) {
-    return user != null ? UserModel(uid: user.uid, email: user.email) : null;
+  UserModel _userFromfirebaseuser(User? user) {
+    return user != null ? UserModel(uid: user.uid, email: user.email) : null!;
   }
 
   Stream<UserModel> get user {
     return _auth.authStateChanges().map(_userFromfirebaseuser);
   }
 
-  Future createUserwithEmailPassword({String email, String password}) async {
+  Future createUserwithEmailPassword({String ?email, String ?password}) async {
     try {
       UserCredential userCredential = await _auth
-          .createUserWithEmailAndPassword(email: email, password: password);
-      User user = userCredential.user;
+          .createUserWithEmailAndPassword(email: email!, password: password!);
+      User user = userCredential.user!;
       return _userFromfirebaseuser(user);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -46,11 +34,11 @@ class AuthService {
     }
   }
 
-  Future signinUserwithEmailPassword({String email, String password}) async {
+  Future signinUserwithEmailPassword({String ?email, String? password}) async {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
-      User user = userCredential.user;
+          email: email!, password: password!);
+      User user = userCredential.user!;
       return _userFromfirebaseuser(user);
     } on FirebaseAuthException catch (e) {
       print(e);

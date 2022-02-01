@@ -2,22 +2,16 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:youtube_task/Components/Widgets.dart';
+import 'package:youtube_task/Components/Buttons.dart';
 import 'package:youtube_task/Constants.dart';
 import 'package:youtube_task/Controllers/UserManagementController.dart';
-import 'package:youtube_task/Responsive_Layout.dart';
 import 'package:youtube_task/Services/AuthService.dart';
-import 'package:youtube_task/User_Management_Screens/Registration_Screen.dart';
 import 'package:youtube_task/wrapper.dart';
 
-class Login_Screen extends StatelessWidget {
-  String email;
-  String password;
+class Registration_Screen extends StatelessWidget {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final UserManagementController userManagementController =
-      Get.put(UserManagementController());
-
+  final UserManagementController userManagementController = Get.find();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,22 +29,20 @@ class Login_Screen extends StatelessWidget {
               style: GoogleFonts.pacifico()
                   .copyWith(color: Colors.white, fontSize: 25),
             )),
-            // SizedBox(
-            //   height: ResponsiveLayout(context: context).height() * 0.2,
-            // ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Obx(() {
                 return Card(
+                  elevation: 0.3,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+                    borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: userManagementController.loading == true
                       ? Center(
                           child: Container(
                               child: LinearProgressIndicator(
-                                backgroundColor: Colors.green,
-                              )),
+                            backgroundColor: Colors.green,
+                          )),
                         )
                       : Padding(
                           padding: const EdgeInsets.symmetric(
@@ -58,73 +50,65 @@ class Login_Screen extends StatelessWidget {
                           child: Column(
                             children: [
                               TextFormField(
-                                validator: (val) => val.isEmpty ||
-                                        kValidateEmail(val.trim()) == false
-                                    ? "Valid Email Required"
-                                    : null,
+                                validator: (val) =>
+                                    val!.isEmpty || val.trim().isEmail == false
+                                        ? "Valid Email Required"
+                                        : null,
                                 decoration:
                                     kTextFieldInputDecorationWithBorders(
                                         'e.g. usman@yahoo.com',
                                         "Email",
                                         Icons.email),
                                 onChanged: (val) {
-                                  email = val;
+                                  userManagementController.email = val;
                                 },
                               ),
                               SizedBox(
-                                height: ResponsiveLayout(context: context)
-                                        .height() *
-                                    0.03,
+                                height: Get.height * 0.03,
                               ),
                               TextFormField(
                                 obscureText: true,
                                 validator: (val) =>
-                                    val.isEmpty || val.length < 6
+                                    val!.isEmpty || val.length < 6
                                         ? "6-digit Password Required"
                                         : null,
                                 decoration:
                                     kTextFieldInputDecorationWithBorders(
                                         'xxxxxx', 'Password', Icons.vpn_key),
                                 onChanged: (val) {
-                                  password = val;
+                                  userManagementController.password = val;
                                 },
                               ),
                               SizedBox(
-                                height: ResponsiveLayout(context: context)
-                                        .height() *
-                                    0.02,
+                                height: Get.height * 0.02,
                               ),
                               OutlineButtonCustomized(
                                   context: context,
                                   color: Colors.green,
-                                  text: "LOGIN",
+                                  text: "REGISTER",
                                   onPressed: () async {
-                                    if (_formKey.currentState.validate()) {
+                                    // print(email + password!);
+                                    if (_formKey.currentState!.validate()) {
                                       try {
                                         await userManagementController
-                                            .loginUser(
-                                                email: email.trim(),
-                                                password: password.trim());
-                                        Get.offAll(Wrapper());
+                                            .registerUser();
+                                        Get.offAll(()=>Wrapper());
                                       } catch (e) {
                                         print(e);
                                       }
                                     }
                                   }),
                               SizedBox(
-                                height: ResponsiveLayout(context: context)
-                                        .height() *
-                                    0.02,
+                                height: Get.height * 0.02,
                               ),
                               RichText(
                                   text: TextSpan(
-                                      text: 'No Account? ',
+                                      text: 'Already have an account? ',
                                       children: [
                                         TextSpan(
+                                            text: 'LOGIN',
                                             recognizer: TapGestureRecognizer()
-                                              ..onTap = () =>
-                                                  Get.to(Registration_Screen()),
-                                            text: 'Create one',
+                                              ..onTap = () => Get.back(),
                                             style: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: Colors.black87,
@@ -133,13 +117,12 @@ class Login_Screen extends StatelessWidget {
                                             ))
                                       ],
                                       style: TextStyle(color: Colors.black87)))
-                              // Text('No Account? Create one')
                             ],
                           ),
                         ),
                 );
               }),
-            )
+            ),
           ],
         ),
       ),

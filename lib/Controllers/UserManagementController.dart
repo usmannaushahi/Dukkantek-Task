@@ -4,20 +4,23 @@ import 'package:youtube_task/Services/AuthService.dart';
 class UserManagementController extends GetxController {
   var loading = false.obs;
 
-  registerUser({String email, String password}) async {
+  String? email;
+  String? password;
+
+  registerUser() async {
     loading(true);
 
     await AuthService().createUserwithEmailPassword(
-        email: email.trim(), password: password.trim());
+        email: email!.trim(), password: password!.trim());
 
     loading(false);
   }
 
-  loginUser({String email, String password}) async {
+  loginUser() async {
     loading(true);
 
     await AuthService().signinUserwithEmailPassword(
-        email: email.trim(), password: password.trim());
+        email: email!.trim(), password: password!.trim());
     loading(false);
   }
 }

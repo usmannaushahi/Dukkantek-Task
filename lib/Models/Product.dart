@@ -28,25 +28,25 @@ class Product {
     this.productColors,
   });
 
-  int id;
-  Brand brand;
-  String name;
-  String price;
+  int? id;
+  Brand? brand;
+  String? name;
+  String? price;
   dynamic priceSign;
   dynamic currency;
-  String imageLink;
-  String productLink;
-  String websiteLink;
-  String description;
-  double rating;
-  String category;
-  String productType;
-  List<dynamic> tagList;
-  DateTime createdAt;
-  DateTime updatedAt;
-  String productApiUrl;
-  String apiFeaturedImage;
-  List<ProductColor> productColors;
+  String? imageLink;
+  String? productLink;
+  String? websiteLink;
+  String? description;
+  double? rating;
+  String? category;
+  String? productType;
+  List<dynamic>? tagList;
+  DateTime ?createdAt;
+  DateTime ?updatedAt;
+  String ?productApiUrl;
+  String? apiFeaturedImage;
+  List<ProductColor>? productColors;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
     id: json["id"],
@@ -84,12 +84,12 @@ class Product {
     "rating": rating == null ? null : rating,
     "category": category == null ? null : category,
     "product_type": productType,
-    "tag_list": List<dynamic>.from(tagList.map((x) => x)),
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
+    "tag_list": List<dynamic>.from(tagList!.map((x) => x)),
+    "created_at": createdAt!.toIso8601String(),
+    "updated_at": updatedAt!.toIso8601String(),
     "product_api_url": productApiUrl,
     "api_featured_image": apiFeaturedImage,
-    "product_colors": List<dynamic>.from(productColors.map((x) => x.toJson())),
+    "product_colors": List<dynamic>.from(productColors!.map((x) => x.toJson())),
   };
 }
 
@@ -105,8 +105,8 @@ class ProductColor {
     this.colourName,
   });
 
-  String hexValue;
-  String colourName;
+  String? hexValue;
+  String? colourName;
 
   factory ProductColor.fromJson(Map<String, dynamic> json) => ProductColor(
     hexValue: json["hex_value"],
@@ -121,7 +121,7 @@ class ProductColor {
 
 class EnumValues<T> {
   Map<String, T> map;
-  Map<T, String> reverseMap;
+  Map<T, String> ?reverseMap;
 
   EnumValues(this.map);
 
@@ -129,6 +129,6 @@ class EnumValues<T> {
     if (reverseMap == null) {
       reverseMap = map.map((k, v) => new MapEntry(v, k));
     }
-    return reverseMap;
+    return reverseMap!;
   }
 }

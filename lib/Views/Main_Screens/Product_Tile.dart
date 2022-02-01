@@ -26,7 +26,7 @@ class ProductTile extends StatelessWidget {
                     borderRadius: BorderRadius.circular(4),
                   ),
                   child: Image.network(
-                    product.imageLink,
+                    product.imageLink!,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -34,7 +34,7 @@ class ProductTile extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              product.name,
+              product.name!,
               maxLines: 2,
               style:
               TextStyle(fontFamily: 'avenir', fontWeight: FontWeight.w800),

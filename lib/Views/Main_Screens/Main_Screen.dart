@@ -3,10 +3,10 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_task/Controllers/Product_Controller.dart';
-import 'package:youtube_task/Main_Screens/Product_Tile.dart';
-import 'package:youtube_task/Responsive_Layout.dart';
 import 'package:youtube_task/Services/AuthService.dart';
-import 'package:youtube_task/Youtube%20Screen/Youtube_Screen.dart';
+import 'package:youtube_task/Views/Youtube_Screen.dart';
+
+import 'Product_Tile.dart';
 
 class Main_Screen extends StatelessWidget {
   final ProductController productController = Get.put(ProductController());
@@ -21,7 +21,7 @@ class Main_Screen extends StatelessWidget {
             ClipOval(
               child: Container(
                 width: double.infinity,
-                height: ResponsiveLayout(context: context).height() * 0.2,
+                height: Get.height* 0.2,
                 color: Colors.green,
                 child: Center(
                   child: Text(
