@@ -41,7 +41,7 @@ class Main_Screen extends StatelessWidget {
               ),
             ),
             TextButton.icon(
-                onPressed: () => Get.to(Youtube_Screen()),
+                onPressed: () => Get.to(()=>Youtube_Screen()),
                 icon: Icon(
                   Icons.video_collection,
                   color: Colors.red,

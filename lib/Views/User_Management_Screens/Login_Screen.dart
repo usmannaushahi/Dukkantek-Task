@@ -127,7 +127,7 @@ class Login_Screen extends StatelessWidget {
                                         TextSpan(
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () =>
-                                                  Get.to(Registration_Screen()),
+                                                  Get.to(()=>Registration_Screen()),
                                             text: 'Create one',
                                             style: TextStyle(
                                               fontWeight: FontWeight.w500,
