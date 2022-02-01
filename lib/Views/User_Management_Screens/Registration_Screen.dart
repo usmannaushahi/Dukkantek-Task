@@ -25,7 +25,7 @@ class Registration_Screen extends StatelessWidget {
           children: [
             Center(
                 child: Text(
-              'Youtube Task',
+              'Dukkantek Task',
               style: GoogleFonts.pacifico()
                   .copyWith(color: Colors.white, fontSize: 25),
             )),
@@ -98,6 +98,22 @@ class Registration_Screen extends StatelessWidget {
                                       }
                                     }
                                   }),
+                              SizedBox(
+                                height: Get.height * 0.01,
+                              ),
+                              Text('OR'),
+                              SizedBox(
+                                height: Get.height * 0.01,
+                              ),
+                              GoogleButton(onPressed: () async{
+                                try {
+                                  userManagementController.signInwithGoogle();
+                                  Get.offAll(()=>Wrapper());
+                                } catch (e) {
+                                  print(e);
+                                }
+                              }),
+                              // GoogleSignInButton(),
                               SizedBox(
                                 height: Get.height * 0.02,
                               ),

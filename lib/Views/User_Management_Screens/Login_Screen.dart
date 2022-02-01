@@ -27,7 +27,7 @@ class Login_Screen extends StatelessWidget {
           children: [
             Center(
                 child: Text(
-              'Youtube Task',
+              'Dukkantek Task',
               style: GoogleFonts.pacifico()
                   .copyWith(color: Colors.white, fontSize: 25),
             )),
@@ -93,12 +93,30 @@ class Login_Screen extends StatelessWidget {
                                       try {
                                         await userManagementController
                                             .loginUser();
-                                        Get.offAll(()=>Wrapper());
+                                        Get.offAll(() => Wrapper());
                                       } catch (e) {
                                         print(e);
                                       }
                                     }
                                   }),
+                              SizedBox(
+                                height: Get.height * 0.01,
+                              ),
+                              Text('OR'),
+                              SizedBox(
+                                height: Get.height * 0.01,
+                              ),
+                              GoogleButton(
+                                  onPressed: () async {
+                                    try {
+                                      userManagementController
+                                          .signInwithGoogle();
+                                      Get.offAll(() => Wrapper());
+                                    } catch (e) {
+                                      print(e);
+                                    }
+                                  },
+                                  isLogin: true),
                               SizedBox(
                                 height: Get.height * 0.02,
                               ),

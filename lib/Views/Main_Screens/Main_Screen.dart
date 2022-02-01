@@ -25,7 +25,7 @@ class Main_Screen extends StatelessWidget {
                 color: Colors.green,
                 child: Center(
                   child: Text(
-                    'Youtube Task',
+                    'Dukkantek Task',
                     style: GoogleFonts.pacifico()
                         .copyWith(color: Colors.white, fontSize: 18),
                   ),

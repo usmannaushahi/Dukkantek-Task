@@ -7,18 +7,21 @@ class UserManagementController extends GetxController {
   String? email;
   String? password;
 
+  signInwithGoogle() async {
+    loading(true);
+    await AuthService().signInWithGoogle();
+    loading(false);
+  }
+
   registerUser() async {
     loading(true);
-
     await AuthService().createUserwithEmailPassword(
         email: email!.trim(), password: password!.trim());
-
     loading(false);
   }
 
   loginUser() async {
     loading(true);
-
     await AuthService().signinUserwithEmailPassword(
         email: email!.trim(), password: password!.trim());
     loading(false);
